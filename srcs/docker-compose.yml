@@ -1,0 +1,24 @@
+services:
+  mariadb:
+    build: ./requirements/mariadb
+    container_name: mariadb
+    env_file:
+      - .env
+    volumes:
+      - db_volume:/var/lib/mysql
+    networks:
+      - inception
+    restart: always
+
+volumes:
+  db_volume:
+    driver: local
+    driver_opts:
+      type: none
+      device: /home/kali/data/mariadb
+      o: bind
+
+networks:
+  inception:
+    driver: bridge
+
