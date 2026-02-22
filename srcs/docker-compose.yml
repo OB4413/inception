@@ -5,20 +5,19 @@ services:
     env_file:
       - .env
     volumes:
-      - db_volume:/var/lib/mysql
+      - mariadb_data:/var/lib/mysql
     networks:
       - inception
     restart: always
 
 volumes:
-  db_volume:
+  mariadb_data:
     driver: local
     driver_opts:
       type: none
-      device: /home/kali/data/mariadb
       o: bind
+      device: /home/kali/data/mariadb
 
 networks:
   inception:
     driver: bridge
-
