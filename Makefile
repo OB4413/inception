@@ -14,6 +14,9 @@ build:
 down:
 	docker-compose -f $(docker-compose-file) down
 
+logs:
+	docker-compose -f $(docker-compose-file) logs
+
 re: down up
 
 fclean: down 

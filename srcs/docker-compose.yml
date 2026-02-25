@@ -9,6 +9,30 @@ services:
     networks:
       - inception
     restart: always
+  wordpress:
+    build: ./requirements/wordpress
+    container_name: wordpress
+    env_file:
+      - .env
+    volumes:
+      - wordpress_data:/var/www/html
+    depends_on:
+      - mariadb
+    networks:
+      - inception
+    restart: always
+  nginx:
+    build: ./requirements/nginx
+    container_name: nginx
+    depends_on:
+      - wordpress
+    ports:
+      - "443:443"
+    volumes:
+      - wordpress_data:/var/www/html
+    networks:
+      - inception
+    restart: always
 
 volumes:
   mariadb_data:
@@ -17,6 +41,12 @@ volumes:
       type: none
       o: bind
       device: /home/kali/data/mariadb
+  wordpress_data:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: /home/kali/data/wordpress
 
 networks:
   inception:
