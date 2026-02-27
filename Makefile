@@ -3,7 +3,7 @@ docker-compose-file = srcs/docker-compose.yml
 all: up
 
 creat_D_volume:
-	mkdir -p /home/kali/data/mariadb /home/kali/data/wordpress
+	mkdir -p /home/kali/data/mariadb /home/kali/data/wordpress /home/kali/data/portainer
 
 up: build creat_D_volume
 	docker-compose -f $(docker-compose-file) up -d

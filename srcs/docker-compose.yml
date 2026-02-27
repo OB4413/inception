@@ -2,6 +2,7 @@ services:
   mariadb:
     build: ./requirements/mariadb
     container_name: mariadb
+    image: mariadb:inception
     env_file:
       - .env
     volumes:
@@ -12,6 +13,7 @@ services:
   wordpress:
     build: ./requirements/wordpress
     container_name: wordpress
+    image: wordpress:inception
     env_file:
       - .env
     volumes:
@@ -24,6 +26,7 @@ services:
   nginx:
     build: ./requirements/nginx
     container_name: nginx
+    image: nginx:inception
     depends_on:
       - wordpress
     ports:
@@ -33,6 +36,69 @@ services:
     networks:
       - inception
     restart: always
+  static-website:
+    build: ./requirements/bonus/static-website
+    container_name: static-website
+    image: static-website:inception
+    ports:
+      - "8080:8080"
+    networks:
+      - inception
+    restart: always
+  redis:
+    build: ./requirements/bonus/redis-cache
+    container_name: redis
+    image: redis:inception
+    depends_on:
+      - mariadb
+      - wordpress
+    ports:
+      - "6379:6379"
+    networks:
+      - inception
+    restart: always
+  ftp:
+    build: ./requirements/bonus/ftp
+    container_name: ftp
+    image: ftp:inception
+    env_file:
+      - .env
+    depends_on:
+      - wordpress
+    ports:
+      - "21:21"
+      - "30000-30009:30000-30009"
+    volumes:
+      - wordpress_data:/var/www/html
+    networks:
+      - inception
+    restart: always
+  adminer:
+    build: ./requirements/bonus/Adminer
+    container_name: adminer
+    image: adminer:inception
+    depends_on:
+      - mariadb
+    ports:
+      - "8081:8081"
+    networks:
+      - inception
+    restart: always
+  portainer:
+    build: ./requirements/bonus/portainer
+    container_name: portainer
+    image: portainer:inception
+    depends_on:
+      - nginx
+    ports:
+      - "9000:9000"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - portainer_data:/data
+    networks:
+      - inception
+    restart: always
+
 
 volumes:
   mariadb_data:
@@ -47,6 +113,13 @@ volumes:
       type: none
       o: bind
       device: /home/kali/data/wordpress
+  portainer_data:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: /home/kali/data/portainer
+
 
 networks:
   inception:

@@ -30,7 +30,19 @@ if ! wp core is-installed --allow-root; then
         --admin_email="$WP_ADMIN_EMAIL" \
         --skip-email \
         --allow-root
+    wp user create \
+        $WP_USER $WP_USER_EMAIL \
+        --user_pass=$WP_USER_PASSWORD \
+        --role=author \
+        --allow-root
+
+    wp config set WP_REDIS_HOST redis --allow-root
+    wp config set WP_REDIS_PORT 6379 --allow-root
+    wp plugin install redis-cache --activate --allow-root
+    wp redis enable --allow-root
 fi
 
+chown -R www-data:www-data /var/www/html
+chmod -R 775 /var/www/html
 
 exec php-fpm8.2 -F
