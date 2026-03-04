@@ -16,9 +16,9 @@ This document explains how to set up, build, run, and maintain the project as a 
 
 - Ability to bind to ports **443**, **21**, and **30000–30009** on the host.
 - Ability to create and write persistent directories under:
-  - `/home/kali/data/mariadb`
-  - `/home/kali/data/wordpress`
-  - `/home/kali/data/portainer`
+  - `/home/obarais/data/mariadb`
+  - `/home/obarais/data/wordpress`
+  - `/home/obarais/data/portainer`
 
 ## 2) Configuration and “secrets”
 
@@ -101,7 +101,7 @@ make fclean
 - remove Docker images
 - prune volumes
 - run `docker-compose down -v`
-- delete `/home/kali/data`
+- delete `/home/obarais/data`
 
 ### Direct Compose usage
 
@@ -138,15 +138,15 @@ This project persists data using **bind-mounted host directories** (declared as 
 ### Persistent paths on the host
 
 - MariaDB data directory:
-  - Host: `/home/kali/data/mariadb`
+  - Host: `/home/obarais/data/mariadb`
   - Container: `/var/lib/mysql`
 
 - WordPress files (site + uploads + generated config):
-  - Host: `/home/kali/data/wordpress`
+  - Host: `/home/obarais/data/wordpress`
   - Container: `/var/www/html`
 
 - Portainer data:
-  - Host: `/home/kali/data/portainer`
+  - Host: `/home/obarais/data/portainer`
   - Container: `/data`
 
 These are defined in `srcs/docker-compose.yml` under `volumes:` using `driver_opts` with `type: none` and `o: bind`.
@@ -154,8 +154,8 @@ These are defined in `srcs/docker-compose.yml` under `volumes:` using `driver_op
 ### What persists across restarts?
 
 - Container restarts and `make down` do **not** remove the host directories.
-- WordPress installation state (files and config) persists in `/home/kali/data/wordpress`.
-- MariaDB tables persist in `/home/kali/data/mariadb`.
+- WordPress installation state (files and config) persists in `/home/obarais/data/wordpress`.
+- MariaDB tables persist in `/home/obarais/data/mariadb`.
 
 ### How to reset to a clean state
 
@@ -166,7 +166,7 @@ make fclean
 make
 ```
 
-Be careful: this deletes `/home/kali/data`.
+Be careful: this deletes `/home/obarais/data`.
 
 ## 5) Service internals (where to look when debugging)
 
@@ -181,4 +181,4 @@ Be careful: this deletes `/home/kali/data`.
   - `/portainer/` → Portainer
   - `/static-website/` → bonus website
 
-If WordPress keeps reinstalling or credentials don’t match, check whether `/home/kali/data/*` already contains old state.
+If WordPress keeps reinstalling or credentials don’t match, check whether `/home/obarais/data/*` already contains old state.

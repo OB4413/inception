@@ -3,7 +3,7 @@ docker-compose-file = srcs/docker-compose.yml
 all: up
 
 creat_D_volume:
-	mkdir -p /home/kali/data/mariadb /home/kali/data/wordpress /home/kali/data/portainer
+	mkdir -p /home/obarais/data/mariadb /home/obarais/data/wordpress /home/obarais/data/portainer
 
 up: build creat_D_volume
 	docker-compose -f $(docker-compose-file) up -d
@@ -25,4 +25,4 @@ fclean: down
 	fi
 	docker volume prune -f
 	docker-compose -f $(docker-compose-file) down -v
-	sudo rm -rf /home/kali/data
+	sudo rm -rf /home/obarais/data

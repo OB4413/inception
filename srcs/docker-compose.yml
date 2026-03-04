@@ -106,19 +106,19 @@ volumes:
     driver_opts:
       type: none
       o: bind
-      device: /home/kali/data/mariadb
+      device: /home/obarais/data/mariadb
   wordpress_data:
     driver: local
     driver_opts:
       type: none
       o: bind
-      device: /home/kali/data/wordpress
+      device: /home/obarais/data/wordpress
   portainer_data:
     driver: local
     driver_opts:
       type: none
       o: bind
-      device: /home/kali/data/portainer
+      device: /home/obarais/data/portainer
 
 
 networks:

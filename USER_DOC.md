@@ -56,7 +56,7 @@ make re
 make fclean
 ```
 
-Note: `make` creates persistent directories under `/home/kali/data/`.
+Note: `make` creates persistent directories under `/home/obarais/data/`.
 
 ## 4) Access the website and admin panels
 
@@ -141,7 +141,7 @@ make fclean
 make
 ```
 
-Warning: `make fclean` deletes `/home/kali/data/` (your persisted database and WordPress files).
+Warning: `make fclean` deletes `/home/obarais/data/` (your persisted database and WordPress files).
 
 ## 6) Check that services are running correctly
 
