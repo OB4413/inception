@@ -23,7 +23,6 @@ fclean: down
 	@if [ -n "$$(docker image ls -q)" ]; then \
 		docker image rm -f $$(docker image ls -q); \
 	fi
-	docker system prune -f
 	docker volume prune -f
 	docker-compose -f $(docker-compose-file) down -v
 	sudo rm -rf /home/kali/data

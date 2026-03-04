@@ -7,6 +7,6 @@ RUN apt update && \
     tar -xzf portainer-2.20.3-linux-amd64.tar.gz -C /opt/portainer --strip-components=1 && \
     chmod +x /opt/portainer/portainer
 
-EXPOSE 9000
+EXPOSE 9001
 
-CMD ["/opt/portainer/portainer", "--bind", "0.0.0.0:9000", "--data", "/data"]
+ENTRYPOINT ["/opt/portainer/portainer", "--bind", "0.0.0.0:9001", "--data", "/data"]
